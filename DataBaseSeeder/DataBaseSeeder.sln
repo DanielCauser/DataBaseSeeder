@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseSeeder", "DataBaseSeeder\DataBaseSeeder.csproj", "{DDDEC467-187A-497A-8BEE-73FF16947EB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseSeederAPI", "..\DataBaseSeederAPI\DataBaseSeederAPI.csproj", "{3018C998-E9A3-4ADD-BE92-84562C43F1F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDDEC467-187A-497A-8BEE-73FF16947EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDEC467-187A-497A-8BEE-73FF16947EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDEC467-187A-497A-8BEE-73FF16947EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDEC467-187A-497A-8BEE-73FF16947EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3018C998-E9A3-4ADD-BE92-84562C43F1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3018C998-E9A3-4ADD-BE92-84562C43F1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3018C998-E9A3-4ADD-BE92-84562C43F1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3018C998-E9A3-4ADD-BE92-84562C43F1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
