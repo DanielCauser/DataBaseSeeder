@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataBaseSeeder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,9 @@ namespace DataBaseSeederAPI
                 opt.UseInMemoryDatabase("ClientDb"));
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }); });
+
+            services.AddTransient<IReadJsonFromFile, ReadJsonFromFile>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

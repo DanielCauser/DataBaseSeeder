@@ -1,14 +1,19 @@
-﻿using System;
+using DataBaseSeeder;
 using DataBaseSeeder.Models;
 using Microsoft.EntityFrameworkCore;
+using DataBaseSeederAPI.Controllers;
 
 namespace DataBaseSeederAPI
 {
     public class ClientContext : DbContext
     {
-        public ClientContext(DbContextOptions<ClientContext> options)
+        private readonly IReadJsonFromFile _seedService;
+
+        public ClientContext(DbContextOptions<ClientContext> options,
+            IReadJsonFromFile seedService)
             : base(options)
         {
+            _seedService = seedService;
         }
 
         public DbSet<Client> Clients { get; set; }
@@ -19,15 +24,8 @@ namespace DataBaseSeederAPI
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Seed
-            //var list = new List<TodoItem>();
-
-            //using (var reader = new StreamReader(Assembly.GetAssembly(typeof(Startup))
-            //                                         .GetManifestResourceStream(Assembly.GetAssembly(typeof(Startup)).GetManifestResourceNames().First()) ?? throw new InvalidOperationException()))
-            //{
-            //    list = JsonConvert.DeserializeObject<List<TodoItem>>(reader.ReadToEnd());
-            //}
-
-            //modelBuilder.Entity<TodoItem>().HasData(list.ToArray());
+            var list = _seedService.ReadClientsFromJsonFile();
+            modelBuilder.Entity<Client>().HasData(list.ToArray());
         }
     }
 }
