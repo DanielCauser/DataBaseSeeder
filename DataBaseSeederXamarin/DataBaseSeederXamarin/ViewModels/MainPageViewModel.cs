@@ -11,11 +11,19 @@ namespace DataBaseSeederXamarin.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        private readonly IDbSeeder _dbSeeder;
+
         public MainPageViewModel(INavigationService navigationService,
             IDbSeeder dbSeeder)
             : base(navigationService)
         {
+            _dbSeeder = dbSeeder;
             Title = "Main Page";
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            _dbSeeder.Seed();
         }
     }
 }

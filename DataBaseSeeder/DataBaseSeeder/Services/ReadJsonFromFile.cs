@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DataBaseSeeder.Models;
+using Newtonsoft.Json;
 
 namespace DataBaseSeeder
 {
@@ -13,11 +14,14 @@ namespace DataBaseSeeder
         public List<Client> ReadClientsFromJsonFile()
         {
             var list = new List<Client>();
-//            using (var reader = new StreamReader(Assembly.GetAssembly(typeof(Startup))
-//                                                     .GetManifestResourceStream(Assembly.GetAssembly(typeof(Startup)).GetManifestResourceNames().First()) ?? throw new InvalidOperationException()))
-//            {
-//                list = JsonConvert.DeserializeObject<List<Client>>(reader.ReadToEnd());
-//            }
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "DataBaseSeeder.ClientsPayload.json";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                list = JsonConvert.DeserializeObject<List<Client>>(reader.ReadToEnd());
+            }
 
             return list;
         }

@@ -2,7 +2,7 @@ using Autofac;
 
 namespace DataBaseSeeder
 {
-    public class Ioc_Register //: Module
+    public class Ioc_Register
     {
         public static void Load(ContainerBuilder builder)
         {
