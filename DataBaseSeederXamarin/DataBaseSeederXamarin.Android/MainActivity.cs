@@ -1,7 +1,9 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using DataBaseSeeder;
 using Prism;
+using Prism.Autofac;
 using Prism.Ioc;
 
 namespace DataBaseSeederXamarin.Droid
@@ -25,7 +27,7 @@ namespace DataBaseSeederXamarin.Droid
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Register any platform specific implementations
+            Ioc_Register.Load(containerRegistry.GetBuilder());
         }
     }
 }

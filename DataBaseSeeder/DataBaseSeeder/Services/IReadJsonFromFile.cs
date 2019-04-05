@@ -6,6 +6,6 @@ namespace DataBaseSeeder
 {
     public interface IReadJsonFromFile
     {
-        Task<List<Client>> ReadClientsFromJsonFile();
+        List<Client> ReadClientsFromJsonFile();
     }
 }

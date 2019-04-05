@@ -20,14 +20,14 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
     <JavaOptions />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
-<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -90,8 +90,12 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataBaseSeeder\DataBaseSeeder\DataBaseSeeder.csproj">
+      <Project>{dddec467-187a-497a-8bee-73ff16947eb9}</Project>
+      <Name>DataBaseSeeder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataBaseSeederXamarin\DataBaseSeederXamarin.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{FA9266BE-F719-44CE-9527-DD6CDDCEF43D}</Project>
       <Name>DataBaseSeederXamarin</Name>
     </ProjectReference>
   </ItemGroup>

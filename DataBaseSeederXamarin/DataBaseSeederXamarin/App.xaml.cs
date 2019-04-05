@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using DataBaseSeederXamarin.ViewModels;
 using DataBaseSeederXamarin.Views;
+using Prism.Autofac;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

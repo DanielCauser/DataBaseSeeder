@@ -1,7 +1,9 @@
-﻿using Foundation;
+﻿using DataBaseSeeder;
+using Foundation;
 using Prism;
 using Prism.Ioc;
 using UIKit;
+using Prism.Autofac;
 
 
 namespace DataBaseSeederXamarin.iOS
@@ -32,7 +34,7 @@ namespace DataBaseSeederXamarin.iOS
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Register any platform specific implementations
+            Ioc_Register.Load(containerRegistry.GetBuilder());
         }
     }
 }

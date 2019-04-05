@@ -9,4 +9,7 @@
     <PackageReference Include="Prism.Autofac.Forms" Version="7.1.0.431" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataBaseSeeder\DataBaseSeeder\DataBaseSeeder.csproj" />
+  </ItemGroup>
 </Project>
