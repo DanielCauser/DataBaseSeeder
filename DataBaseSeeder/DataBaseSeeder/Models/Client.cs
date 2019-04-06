@@ -9,7 +9,7 @@ namespace DataBaseSeeder.Models
         public string Phone { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public List<Contract> Contracts { get; set; }
-        public List<Receipt> Receipts { get; set; }
+        public IList<Contract> Contracts { get; set; }
+        public IList<Receipt> Receipts { get; set; }
     }
 }

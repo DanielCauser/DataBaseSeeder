@@ -14,52 +14,83 @@ namespace DataBaseSeeder
     {
         private readonly IReadJsonFromFile _jsonreaderService;
         private List<Type> AlreadyAdded { get; set; }
-        private List<Object> List { get; set; }
+
+        private List<Object> ResourceGraph { get; set; }
+        private Dictionary<Type, List<object>> FlatenedList { get; set; }
+
+        private List<Type> AssemplyEntities { get; set; }
 
         public DbSeeder(IReadJsonFromFile jsonreaderService)
         {
             _jsonreaderService = jsonreaderService;
-            AlreadyAdded = new List<Type>(); 
+            AlreadyAdded = new List<Type>();
+            FlatenedList = new Dictionary<Type, List<object>>();
+            AssemplyEntities = new List<Type>();
         }
 
         public SQLiteConnection sqliteAsyncConnection { get; private set; }
 
         public Task Seed()
         {
-            var list = _jsonreaderService.ReadClientsFromJsonFile();
-            sqliteAsyncConnection = new SQLiteConnection(FileSystem.AppDataDirectory, "DataBase.db");
+            ResourceGraph = _jsonreaderService.ReadClientsFromJsonFile().Cast<object>().ToList(); ;
+            //sqliteAsyncConnection = new SQLiteConnection(FileSystem.AppDataDirectory, "DataBase.db"));
             string nspace = "DataBaseSeeder.Models";
 
-            var q = from t in Assembly.GetExecutingAssembly().GetTypes()
+            AssemplyEntities = (from t in Assembly.GetExecutingAssembly().GetTypes()
                     where t.IsClass && t.Namespace == nspace
-                    select t;
+                    select t).ToList();
 
 
             // for each of the items is the object graph
-
-            // grab all the Nx1 and NxN of tyeps that are in the 
-            // in the assembly type list.
-
-            // create instances for the types
-            // loop thought the lists repeating the steps above
-
-            // exit condition is all the types in the assembly have been added.
-
-
-            q.ToList().ForEach(t => 
+            foreach (var entity in AssemplyEntities)
             {
+                if(!FlatenedList.Any())
+                {
+                    // looping through the root
+                    FlatenedList.Add(entity, ResourceGraph.Distinct()
+                                                          .ToList());
+                    AlreadyAdded.Add(entity);
 
-            });
+                    GrabChildren(FlatenedList.First().Key, FlatenedList.First().Value);
+                }
 
+                // create instances for the types
+                // loop thought the lists repeating the steps above
+
+                // exit condition is all the types in the assembly have been added.
+            }
+
+            // lastly
+            // create tables
+            // Save entities to each of the entities 
+            // to the database
 
             return Task.CompletedTask;
         }
 
-        // create tables
+        private void GrabChildren(Type parentType, List<object> values)
+        {
+            // grab all the Nx1 and NxN of types that are in the 
+            // in the assembly type list.
+            foreach (var item in values)
+            {
+                var singleChildren = parentType.GetProperties()
+                                             .Where(x => AssemplyEntities.Contains(x.PropertyType))
+                                             .ToList();
+                // TO DO GET LIST PROPERTIES
+                var listChildren = parentType.GetProperties()
+                                             .Where(x => x.PropertyType
+                                                          .GetInterfaces()
+                                                          .Contains(typeof(IList<>)))
+                                             .ToList();
+                // p.PropertyType.GetInterfaces().Contains(typeof(IEnumerable))
+                //foreach (PropertyInfo prop in props)
+                //{
+                //    object propValue = prop.GetValue(myObject, null);
 
-        // Loop through all entities in payload
-
-        // Save entities to each of the entities 
-        // to the database
+                //    // Do something with propValue
+                //}
+            }
+        }
     }
 }

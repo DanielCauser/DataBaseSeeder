@@ -9,6 +9,6 @@ namespace DataBaseSeeder.Models
         public Guid Id { get; set; }
         public Guid ClientId { get; set; }
         public ContractContractStatus ContractStatus { get; set; }
-        public List<ContractNote> ContractNotes { get; set; }
+        public IList<ContractNote> ContractNotes { get; set; }
     }
 }
