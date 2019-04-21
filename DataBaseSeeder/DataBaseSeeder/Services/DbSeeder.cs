@@ -32,14 +32,13 @@ namespace DataBaseSeeder
 
         public Task Seed()
         {
-            ResourceGraph = _jsonreaderService.ReadClientsFromJsonFile().Cast<object>().ToList(); ;
+            ResourceGraph = _jsonreaderService.ReadClientsFromJsonFile().Cast<object>().ToList();
             //sqliteAsyncConnection = new SQLiteConnection(FileSystem.AppDataDirectory, "DataBase.db"));
             string nspace = "DataBaseSeeder.Models";
 
             AssemplyEntities = (from t in Assembly.GetExecutingAssembly().GetTypes()
                     where t.IsClass && t.Namespace == nspace
                     select t).ToList();
-
 
             // for each of the items is the object graph
             foreach (var entity in AssemplyEntities)
@@ -64,32 +63,26 @@ namespace DataBaseSeeder
             // create tables
             // Save entities to each of the entities 
             // to the database
+            FlatenedList.Clear();
 
             return Task.CompletedTask;
         }
 
         private void GrabChildren(Type parentType, List<object> values)
         {
-            // grab all the Nx1 and NxN of types that are in the 
+            // grab all the 1xN and NxN of types that are 
             // in the assembly type list.
             foreach (var item in values)
             {
-                var singleChildren = parentType.GetProperties()
+                var oneToOne = parentType.GetProperties()
                                              .Where(x => AssemplyEntities.Contains(x.PropertyType))
                                              .ToList();
-                // TO DO GET LIST PROPERTIES
-                var listChildren = parentType.GetProperties()
-                                             .Where(x => x.PropertyType
-                                                          .GetInterfaces()
-                                                          .Contains(typeof(IList<>)))
-                                             .ToList();
-                // p.PropertyType.GetInterfaces().Contains(typeof(IEnumerable))
-                //foreach (PropertyInfo prop in props)
-                //{
-                //    object propValue = prop.GetValue(myObject, null);
 
-                //    // Do something with propValue
-                //}
+                // TO DO GET LIST PROPERTIES
+                var oneToMany = parentType.GetProperties()
+                                             .Where(x => x.PropertyType
+                                                          .Namespace == "System.Collections.Generic")
+                                             .ToList();
             }
         }
     }
